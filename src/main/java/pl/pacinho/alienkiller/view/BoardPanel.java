@@ -13,7 +13,12 @@ public class BoardPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawBackground(g);
+        drawPlayer(g);
         Toolkit.getDefaultToolkit().sync();
+    }
+
+    private void drawPlayer(Graphics g) {
+
     }
 
     private final BufferedImage space = Images.load(ObjectType.SPACE);

@@ -1,16 +1,18 @@
 package pl.pacinho.alienkiller.view;
 
 import lombok.Getter;
+import pl.pacinho.alienkiller.model.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class Board extends JFrame {
 
     private Board self = this;
     private BoardPanel boardPanel;
+
+    @Getter
+    private Player player;
 
     public Board() {
         this.setTitle("Alien Killer");
@@ -18,6 +20,7 @@ public class Board extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        player = new Player(10, this.getHeight()/2);
         init();
         initView();
         initActions();
