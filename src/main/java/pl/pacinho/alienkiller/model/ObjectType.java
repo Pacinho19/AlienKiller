@@ -5,5 +5,5 @@ public enum ObjectType {
     SPACE,
     PLAYER,
     ALIEN,
-    BULLET
+    GAME_OVER, BULLET
 }

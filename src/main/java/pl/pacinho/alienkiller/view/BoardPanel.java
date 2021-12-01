@@ -15,6 +15,7 @@ import java.util.List;
 public class BoardPanel extends JPanel {
 
     private final BufferedImage spaceImage = (BufferedImage) Images.load(ObjectType.SPACE);
+    private BufferedImage gameOverImage = (BufferedImage) Images.load(ObjectType.GAME_OVER);
 
     private Board board;
     private GameObject player;
@@ -23,6 +24,7 @@ public class BoardPanel extends JPanel {
     private List<GameObject> bullets;
     @Getter
     private List<GameObject> aliens;
+    private boolean gameOver;
 
     public BoardPanel(Board board) {
         this.board = board;
@@ -35,11 +37,51 @@ public class BoardPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawBackground(g);
-        drawGifObject(player, g);
-        drawBullets(g);
-        drawAliens(g);
-        Toolkit.getDefaultToolkit().sync();
+        if (!gameOver) {
+            drawBackground(g);
+            drawGifObject(player, g);
+            drawBullets(g);
+            drawAliens(g);
+            checkCollisionBetweenBulletsAndAliens();
+            checkCollisionBetweenAliensAndPlayer();
+            Toolkit.getDefaultToolkit().sync();
+            return;
+        }
+        drawGameOver(g);
+
+    }
+
+    private void drawGameOver(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        int x = (this.getWidth() - gameOverImage.getWidth(null)) / 2;
+        int y = (this.getHeight() - gameOverImage.getHeight(null)) / 2;
+        g2d.drawImage(gameOverImage, x, y, null);
+    }
+
+    private void checkCollisionBetweenAliensAndPlayer() {
+        if (player == null) {
+            return;
+        }
+
+        for (GameObject alien : board.getBoardPanel().getAliens()) {
+            if (alien.intersects(player)) {
+                gameOver = true;
+                board.setPlayer(null);
+                return;
+            }
+        }
+    }
+
+    private void checkCollisionBetweenBulletsAndAliens() {
+        for (GameObject alien : board.getBoardPanel().getAliens()) {
+            for (GameObject bullet : board.getBoardPanel().getBullets()) {
+                if (alien.intersects(bullet)) {
+                    board.getBoardPanel().getBullets().remove(bullet);
+                    board.getBoardPanel().getAliens().remove(alien);
+                    return;
+                }
+            }
+        }
     }
 
     private void drawBullets(Graphics g) {
@@ -49,12 +91,16 @@ public class BoardPanel extends JPanel {
     private void drawAliens(Graphics g) {
         aliens.forEach(b -> drawGifObject(b, g));
     }
+
     private void drawGifObject(GameObject gameObject, Graphics g) {
+        if (gameObject == null) {
+            return;
+        }
         g.drawImage(gameObject.getIcon().getImage(),
-                gameObject.getX(),
-                gameObject.getY(),
-                gameObject.getWidth(),
-                gameObject.getHeight(),
+                (int) gameObject.getX(),
+                (int) gameObject.getY(),
+                (int) gameObject.getWidth(),
+                (int) gameObject.getHeight(),
                 this);
     }
 
@@ -65,7 +111,7 @@ public class BoardPanel extends JPanel {
     }
 
     public void addBullet(int x, int y) {
-        GameObject gameObject = new GameObject(x + player.getWidth() + 10, y, 70, 50, ObjectType.BULLET);
+        GameObject gameObject = new GameObject(x + (int) player.getWidth() + 10, y, 70, 50, ObjectType.BULLET);
         bullets.add(gameObject);
         new BulletThread(board, gameObject).start();
     }

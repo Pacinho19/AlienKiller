@@ -6,17 +6,14 @@ import lombok.Setter;
 import pl.pacinho.alienkiller.logic.Images;
 
 import javax.swing.*;
+import java.awt.Rectangle;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class GameObject {
+public class GameObject extends Rectangle {
 
-    private int x;
-    private int y;
     private ObjectType objectType;
-    private int width;
-    private int height;
     private ImageIcon icon;
 
     public GameObject(int x, int y, int width, int height, ObjectType objectType) {
@@ -26,5 +23,13 @@ public class GameObject {
         this.width = width;
         this.height = height;
         icon = (ImageIcon) Images.load(objectType);
+    }
+
+    public void setX(int x){
+        this.x=x;
+    }
+
+    public void setY(int y){
+        this.y=y;
     }
 }

@@ -1,6 +1,7 @@
 package pl.pacinho.alienkiller.view;
 
 import lombok.Getter;
+import lombok.Setter;
 import pl.pacinho.alienkiller.logic.Action;
 import pl.pacinho.alienkiller.model.GameObject;
 import pl.pacinho.alienkiller.model.ObjectType;
@@ -18,6 +19,7 @@ public class Board extends JFrame {
     private BoardPanel boardPanel;
 
     @Getter
+    @Setter
     private GameObject player;
 
     private Action action;

@@ -27,7 +27,7 @@ public class BulletThread extends Thread implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        bullet.setX(bullet.getX() + 10);
+        bullet.setX((int) bullet.getX() + 10);
         if (bullet.getX() + bullet.getWidth() >= board.getWidth()) {
             timer.stop();
             currentThread().interrupt();

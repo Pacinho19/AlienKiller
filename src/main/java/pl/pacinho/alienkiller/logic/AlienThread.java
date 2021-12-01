@@ -27,7 +27,7 @@ public class AlienThread extends Thread implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        GameObject alien = new GameObject(board.getWidth() - 10, RandomUtils.getInt(0, board.getHeight() - 50), 50, 50, ObjectType.ALIEN);
+        GameObject alien = new GameObject(board.getWidth() - 10, RandomUtils.getInt(0, board.getHeight() - 50), 80, 80, ObjectType.ALIEN);
         board.getBoardPanel()
                 .getAliens()
                 .add(alien);

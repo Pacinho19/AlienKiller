@@ -26,7 +26,7 @@ public class AlienMoveThread extends Thread implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        alien.setX(alien.getX() - 10);
+        alien.setX((int)alien.getX() - 10);
         if (alien.getX() == 0) {
             timer.stop();
             currentThread().interrupt();

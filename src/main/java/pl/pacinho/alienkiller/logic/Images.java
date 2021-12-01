@@ -11,6 +11,7 @@ import java.net.URL;
 public class Images {
 
     private static final BufferedImage space = loadPNG("space.png");
+    private static final BufferedImage gameOver = loadPNG("GameOver.png");
     private static final ImageIcon player = loadGIF("player3.gif");
     private static final ImageIcon bullet = loadGIF("bullet2.gif");
     private static final ImageIcon alien = loadGIF("alien.gif");
@@ -30,14 +31,14 @@ public class Images {
         return imageIcon;
     }
 
-
-
     public static Object load(ObjectType cellType) {
         switch (cellType) {
             case SPACE:
                 return space;
             case PLAYER:
                 return player;
+            case GAME_OVER:
+                return gameOver;
             case BULLET:
                 return bullet;
             case ALIEN:
